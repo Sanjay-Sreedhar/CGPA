@@ -1,0 +1,384 @@
+[
+   [
+    {
+        "registerNumber": 20130591,
+        "studentName": "SANJAY SREEDHAR P",
+        "branch": "Computer Engineering",
+        "semester": 1,
+        "courses": [
+           {
+              "course": "1001-English for Communication I",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 44,
+              "grade": "A",
+              "result": "P"
+           },
+           {
+              "course": "1002-Engineering Mathematics I",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 46,
+              "grade": "B",
+              "result": "P"
+           },
+           {
+              "course": "1003-Engineering Physics I",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 49,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+              "course": "1004-Engineering Chemistry I",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 50,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+              "course": "1008-Computing Fundamentals",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 49,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+              "course": "1009-Health & Physical Education",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 29,
+              "grade": "C",
+              "result": "P"
+           }
+        ]
+     },
+     {
+        "registerNumber": 20130591,
+        "studentName": "SANJAY SREEDHAR P",
+        "branch": "Computer Engineering",
+        "semester": 2,
+        "courses": [
+           {
+              "course": "2001-English for Communication II",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 43,
+              "grade": "A",
+              "result": "P"
+           },
+           {
+              "course": "2002-Engineering Mathematics II",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 50,
+              "grade": "A",
+              "result": "P"
+           },
+           {
+              "course": "2003-Engineering Physics II",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 43,
+              "grade": "C",
+              "result": "P"
+           },
+           {
+              "course": "2004-Engineering Chemistry II",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 44,
+              "grade": "A",
+              "result": "P"
+           },
+           {
+              "course": "2005-Engineering Graphics",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 48,
+              "grade": "C",
+              "result": "P"
+           },
+           {
+              "course": "2007-Engineering Science Lab II",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 50,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+              "course": "2008-Workshop Practice",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 41,
+              "grade": "A",
+              "result": "P"
+           },
+           {
+              "course": "2009-Life Skill",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 46,
+              "grade": "A",
+              "result": "P"
+           },
+           {
+            "course": "2131-Programming in C",
+            "examType": "Regular",
+            "attendance": "Present",
+            "internalMark": 46,
+            "grade": "A",
+            "result": "P"
+         },
+         {
+            "course": "2139-Programming in C Lab",
+            "examType": "Regular",
+            "attendance": "Present",
+            "internalMark": 44,
+            "grade": "A",
+            "result": "P"
+         }
+        ]
+     },
+    {
+       "registerNumber": 20130591,
+       "studentName": "SANJAY SREEDHAR P",
+       "branch": "Computer Engineering",
+       "semester": 3,
+       "courses": [
+          {
+             "course": "3131-Computer Architecture",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 40,
+             "grade": "C",
+             "result": "P"
+          },
+          {
+             "course": "3001-Environmental Science & Disaster Management",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 31,
+             "grade": "C",
+             "result": "P"
+          },
+          {
+             "course": "3139-Database Management System Lab",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 41,
+             "grade": "A",
+             "result": "P"
+          },
+          {
+             "course": "3138-Digital Computer Principles Lab",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 44,
+             "grade": "A",
+             "result": "P"
+          },
+          {
+             "course": "3137-Objected Oriented Programming Lab",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 47,
+             "grade": "A",
+             "result": "P"
+          },
+          {
+             "course": "3134-Objected Oriented Programming through C++",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 37,
+             "grade": "A",
+             "result": "P"
+          },
+          {
+             "course": "3133-Digital Computer Principles",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 40,
+             "grade": "C",
+             "result": "P"
+          },
+          {
+             "course": "3132-Database Management System",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 38,
+             "grade": "C",
+             "result": "P"
+          }
+       ]
+    }
+   ],
+   [
+    {
+       "registerNumber": 20130557,
+       "studentName": "ASMA P",
+       "branch": "Computer Engineering",
+       "semester": 3,
+       "courses": [
+          {
+             "course": "3131-Computer Architecture",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 49,
+             "grade": "S",
+             "result": "P"
+          },
+          {
+             "course": "3001-Environmental Science & Disaster Management",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 50,
+             "grade": "S",
+             "result": "P"
+          },
+          {
+             "course": "3139-Database Management System Lab",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 46,
+             "grade": "S",
+             "result": "P"
+          },
+          {
+             "course": "3138-Digital Computer Principles Lab",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 43,
+             "grade": "S",
+             "result": "P"
+          },
+          {
+             "course": "3137-Objected Oriented Programming Lab",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 47,
+             "grade": "S",
+             "result": "P"
+          },
+          {
+             "course": "3134-Objected Oriented Programming through C++",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 49,
+             "grade": "S",
+             "result": "P"
+          },
+          {
+             "course": "3133-Digital Computer Principles",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 49,
+             "grade": "S",
+             "result": "P"
+          },
+          {
+             "course": "3132-Database Management System",
+             "examType": "Regular",
+             "attendance": "Present",
+             "internalMark": 48,
+             "grade": "S",
+             "result": "P"
+          }
+       ]
+    },
+    {
+        "registerNumber": 20130557,
+        "studentName": "ASMA P A",
+        "branch": "Computer Engineering",
+        "semester": 2,
+        "courses": [
+           {
+              "course": "2001-English for Communication II",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 50,
+              "grade": "A",
+              "result": "P"
+           },
+           {
+              "course": "2002-Engineering Mathematics II",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 50,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+              "course": "2003-Engineering Physics II",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 48,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+              "course": "2004-Engineering Chemistry II",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 48,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+              "course": "2005-Engineering Graphics",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 50,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+              "course": "2007-Engineering Science Lab II",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 50,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+              "course": "2008-Workshop Practice",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 41,
+              "grade": "A",
+              "result": "P"
+           },
+           {
+              "course": "2009-Life Skill",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 49,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+            "course": "2131-Programming in C",
+            "examType": "Regular",
+            "attendance": "Present",
+            "internalMark": 50,
+            "grade": "S",
+            "result": "P"
+         },
+         {
+            "course": "2139-Programming in C Lab",
+            "examType": "Regular",
+            "attendance": "Present",
+            "internalMark": 50,
+            "grade": "S",
+            "result": "P"
+         }
+        ]
+     }
+   ]
+]
+
+
