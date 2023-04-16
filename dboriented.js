@@ -718,6 +718,27 @@ app.get("/", (req, res) => {
                 // console.log("sem3 inserted"); 
              });
              break;
+             case 4:
+             sem4 = sgpa;
+             connection.query(`update cgpa set sem1='${sem4}' where register_number='${rno}'`,(err,result)=>{
+                if (err) throw err;
+                // console.log("sem1 inserted"); 
+             });
+             break;
+           case 5:
+             sem5 = sgpa;
+             connection.query(`update cgpa set sem2='${sem5}' where register_number='${rno}'`,(err,result)=>{
+                if (err) throw err;
+                // console.log("sem2 inserted"); 
+             });
+             break;
+           case 6:
+             sem6 = sgpa;
+             connection.query(`update cgpa set sem3='${sem6}' where register_number='${rno}'`,(err,result)=>{
+                if (err) throw err;
+                // console.log("sem3 inserted"); 
+             });
+             break;
            default:
              break;
          }
