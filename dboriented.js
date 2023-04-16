@@ -1,7 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
-const cors = require("cors");
+
+
+var cors=require("cors");//no idea what its used for
+// const { response } = require("express");
+// app.use(cors());
+
+const jwt=require("jsonwebtoken");
 
 // const students = require("./students.js");
 
@@ -26,11 +32,111 @@ connection.connect((err) => {
 
 app.use(bodyParser.json());
 app.use(cors());
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+function verifyToken(req,res,next) {
+
+   let authHeader=req.headers.authorization;
+   if(authHeader==undefined){
+       res.send({Error:"No token provided"})
+   }
+   //the authHeader contains two set of data: bearer and token. token is in second half,so we split it and take the token only
+   let token=authHeader.split(" ")[1]; 
+   jwt.verify(token,"secret",(err,decoded)=>{
+       if(err){
+           res.send({Invalid:"Invalid Token"})
+       }
+       else{
+           next();
+       }
+   })
+}
+
+//Login 
+app.post("/login",(req,res)=>{
+   let user=req.body.username;
+   let pass=req.body.password;
+   if(user==undefined || pass==undefined){
+       res.send({ERROR:"Authentication Failed"});
+   }
+   let q=`select username from users where username='${user}' and password=sha1('${pass}');`;
+   connection.query(q,(err,result)=>{
+       if(err || result.length==0){
+           res.send({error:"Login failed"})
+       }
+       else{
+           let resp={
+               // id : result[0].id,
+               name : result[0].name
+           }
+       let token = jwt.sign(resp,"secret",{ expiresIn: 300})
+       res.send({auth:"True",token:token});        
+       }
+   })
+})
 
 const students=[
+    {
+          "registerNumber": 20130557,
+          "studentName": "ASMA P A",
+          "branch": "Computer Engineering",
+          "semester": 1,
+          "courses": [
+             {
+                "course": "1001-English for Communication I",
+                "examType": "Regular",
+                "attendance": "Present",
+                "internalMark": 48,
+                "grade": "B",
+                "result": "P"
+             },
+             {
+                "course": "1002-Engineering Mathematics I",
+                "examType": "Regular",
+                "attendance": "Present",
+                "internalMark": 50,
+                "grade": "S",
+                "result": "P"
+             },
+             {
+                "course": "1003-Engineering Physics I",
+                "examType": "Regular",
+                "attendance": "Present",
+                "internalMark": 46,
+                "grade": "S",
+                "result": "P"
+             },
+             {
+                "course": "1004-Engineering Chemistry I",
+                "examType": "Regular",
+                "attendance": "Present",
+                "internalMark": 48,
+                "grade": "S",
+                "result": "P"
+             },
+             
+             
+             
+             {
+              "course": "1008-Computing Fundamentals",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 50,
+              "grade": "S",
+              "result": "P"
+           },
+           {
+              "course": "1009-Health & Physical Education",
+              "examType": "Regular",
+              "attendance": "Present",
+              "internalMark": 41,
+              "grade": "A",
+              "result": "P"
+           }
+          ]
+       },
   
-
-
+  
    {
           "registerNumber": 20130591,
           "studentName": "SANJAY SREEDHAR P",
@@ -249,65 +355,77 @@ const students=[
          ]
       },
       {
-        "registerNumber": 20130557,
-        "studentName": "ASMA P A",
-        "branch": "Computer Engineering",
-        "semester": 1,
-        "courses": [
-           {
-              "course": "1001-English for Communication I",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 48,
-              "grade": "B",
-              "result": "P"
-           },
-           {
-              "course": "1002-Engineering Mathematics I",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 50,
-              "grade": "S",
-              "result": "P"
-           },
-           {
-              "course": "1003-Engineering Physics I",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 46,
-              "grade": "S",
-              "result": "P"
-           },
-           {
-              "course": "1004-Engineering Chemistry I",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 48,
-              "grade": "S",
-              "result": "P"
-           },
-           
-           
-           
-           {
-            "course": "1008-Computing Fundamentals",
-            "examType": "Regular",
-            "attendance": "Present",
-            "internalMark": 50,
-            "grade": "S",
-            "result": "P"
-         },
-         {
-            "course": "1009-Health & Physical Education",
-            "examType": "Regular",
-            "attendance": "Present",
-            "internalMark": 41,
-            "grade": "A",
-            "result": "P"
-         }
-        ]
-     },
-     
+         "registerNumber": 20130557,
+         "studentName": "ASMA P",
+         "branch": "Computer Engineering",
+         "semester": 3,
+         "courses": [
+            {
+               "course": "3131-Computer Architecture",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 49,
+               "grade": "S",
+               "result": "P"
+            },
+            {
+               "course": "3001-Environmental Science & Disaster Management",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 50,
+               "grade": "S",
+               "result": "P"
+            },
+            {
+               "course": "3139-Database Management System Lab",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 46,
+               "grade": "S",
+               "result": "P"
+            },
+            {
+               "course": "3138-Digital Computer Principles Lab",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 43,
+               "grade": "S",
+               "result": "P"
+            },
+            {
+               "course": "3137-Objected Oriented Programming Lab",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 47,
+               "grade": "S",
+               "result": "P"
+            },
+            {
+               "course": "3134-Objected Oriented Programming through C++",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 49,
+               "grade": "S",
+               "result": "P"
+            },
+            {
+               "course": "3133-Digital Computer Principles",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 49,
+               "grade": "S",
+               "result": "P"
+            },
+            {
+               "course": "3132-Database Management System",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 48,
+               "grade": "S",
+               "result": "P"
+            }
+         ]
+      },
       {
           "registerNumber": 20130557,
           "studentName": "ASMA P A",
@@ -396,9 +514,80 @@ const students=[
            }
           ]
        },
-      {
-         "registerNumber": 20130557,
-         "studentName": "ASMA P",
+       {
+         "registerNumber": 20133047,
+         "studentName": "RHISHIKESH N S",
+         "branch": "Computer Engineering",
+         "semester": 3,
+         "courses": [
+            {
+               "course": "3139-Database Management System Lab",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 24,
+               "grade": "E",
+               "result": "P"
+            },
+            {
+               "course": "3138-Digital Computer Principles Lab",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 20,
+               "grade": "E",
+               "result": "P"
+            },
+            {
+               "course": "3137-Objected Oriented Programming Lab",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 26,
+               "grade": "D",
+               "result": "P"
+            },
+            {
+               "course": "3134-Objected Oriented Programming through C++",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 20,
+               "grade": "F",
+               "result": "F"
+            },
+            {
+               "course": "3133-Digital Computer Principles",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 20,
+               "grade": "F",
+               "result": "F"
+            },
+            {
+               "course": "3132-Database Management System",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 20,
+               "grade": "F",
+               "result": "F"
+            },
+            {
+               "course": "3131-Computer Architecture",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 20,
+               "grade": "F",
+               "result": "F"
+            },
+            {
+               "course": "3001-Environmental Science & Disaster Management",
+               "examType": "Regular",
+               "attendance": "Present",
+               "internalMark": 20,
+               "grade": "C",
+               "result": "P"
+            }
+         ]
+      },{
+         "registerNumber": 20133048,
+         "studentName": "VIVEK T K",
          "branch": "Computer Engineering",
          "semester": 3,
          "courses": [
@@ -406,55 +595,55 @@ const students=[
                "course": "3131-Computer Architecture",
                "examType": "Regular",
                "attendance": "Present",
-               "internalMark": 49,
-               "grade": "S",
+               "internalMark": 44,
+               "grade": "A",
                "result": "P"
             },
             {
                "course": "3001-Environmental Science & Disaster Management",
                "examType": "Regular",
                "attendance": "Present",
-               "internalMark": 50,
-               "grade": "S",
+               "internalMark": 34,
+               "grade": "B",
                "result": "P"
             },
             {
                "course": "3139-Database Management System Lab",
                "examType": "Regular",
                "attendance": "Present",
-               "internalMark": 46,
-               "grade": "S",
+               "internalMark": 42,
+               "grade": "A",
                "result": "P"
             },
             {
                "course": "3138-Digital Computer Principles Lab",
                "examType": "Regular",
                "attendance": "Present",
-               "internalMark": 43,
-               "grade": "S",
+               "internalMark": 40,
+               "grade": "A",
                "result": "P"
             },
             {
                "course": "3137-Objected Oriented Programming Lab",
                "examType": "Regular",
                "attendance": "Present",
-               "internalMark": 47,
-               "grade": "S",
+               "internalMark": 46,
+               "grade": "A",
                "result": "P"
             },
             {
                "course": "3134-Objected Oriented Programming through C++",
                "examType": "Regular",
                "attendance": "Present",
-               "internalMark": 49,
-               "grade": "S",
+               "internalMark": 41,
+               "grade": "A",
                "result": "P"
             },
             {
                "course": "3133-Digital Computer Principles",
                "examType": "Regular",
                "attendance": "Present",
-               "internalMark": 49,
+               "internalMark": 44,
                "grade": "S",
                "result": "P"
             },
@@ -462,158 +651,17 @@ const students=[
                "course": "3132-Database Management System",
                "examType": "Regular",
                "attendance": "Present",
-               "internalMark": 48,
+               "internalMark": 42,
                "grade": "S",
                "result": "P"
             }
          ]
-      },{
-        "registerNumber": 20133048,
-        "studentName": "VIVEK T K",
-        "branch": "Computer Engineering",
-        "semester": 3,
-        "courses": [
-           {
-              "course": "3131-Computer Architecture",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 44,
-              "grade": "A",
-              "result": "P"
-           },
-           {
-              "course": "3001-Environmental Science & Disaster Management",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 34,
-              "grade": "B",
-              "result": "P"
-           },
-           {
-              "course": "3139-Database Management System Lab",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 42,
-              "grade": "A",
-              "result": "P"
-           },
-           {
-              "course": "3138-Digital Computer Principles Lab",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 40,
-              "grade": "A",
-              "result": "P"
-           },
-           {
-              "course": "3137-Objected Oriented Programming Lab",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 46,
-              "grade": "A",
-              "result": "P"
-           },
-           {
-              "course": "3134-Objected Oriented Programming through C++",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 41,
-              "grade": "A",
-              "result": "P"
-           },
-           {
-              "course": "3133-Digital Computer Principles",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 44,
-              "grade": "S",
-              "result": "P"
-           },
-           {
-              "course": "3132-Database Management System",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 42,
-              "grade": "S",
-              "result": "P"
-           }
-        ]
-     },
-     {
-        "registerNumber": 20133047,
-        "studentName": "RHISHIKESH N S",
-        "branch": "Computer Engineering",
-        "semester": 3,
-        "courses": [
-           {
-              "course": "3139-Database Management System Lab",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 24,
-              "grade": "E",
-              "result": "P"
-           },
-           {
-              "course": "3138-Digital Computer Principles Lab",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 20,
-              "grade": "E",
-              "result": "P"
-           },
-           {
-              "course": "3137-Objected Oriented Programming Lab",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 26,
-              "grade": "D",
-              "result": "P"
-           },
-           {
-              "course": "3134-Objected Oriented Programming through C++",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 20,
-              "grade": "F",
-              "result": "F"
-           },
-           {
-              "course": "3133-Digital Computer Principles",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 20,
-              "grade": "F",
-              "result": "F"
-           },
-           {
-              "course": "3132-Database Management System",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 20,
-              "grade": "F",
-              "result": "F"
-           },
-           {
-              "course": "3131-Computer Architecture",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 20,
-              "grade": "F",
-              "result": "F"
-           },
-           {
-              "course": "3001-Environmental Science & Disaster Management",
-              "examType": "Regular",
-              "attendance": "Present",
-              "internalMark": 20,
-              "grade": "C",
-              "result": "P"
-           }
-        ]
-     }
+      }
     
   ]
   ;
+  
+  
 
 
 app.get("/", (req, res) => {
@@ -675,53 +723,6 @@ app.get("/", (req, res) => {
          }
 
 
-        //  connection.query(`select sem1,sem2,sem3,sem4,sem5,sem6 from cgpa where register_number='${rno}'`,(err,result)=>{
-        //     if (err) throw err;
-        //     s1=result[0].sem1;
-        //     // console.log("sem1 "+s1);
-        //     s2=result[0].sem2;
-        //     // console.log("sem2 "+s2);
-        //     s3=result[0].sem3;
-        //     // console.log("sem3 "+s3);
-        //     s4=result[0].sem4;
-        //     // console.log("sem4 "+s4);
-        //     s5=result[0].sem5;
-        //     // console.log("sem5 "+s5);
-        //     s6=result[0].sem6;
-        //     // console.log("sem6 "+s6);
-
-
-        //     if((s6==0)&&(s5==0)&&(s4==0)&&(s3==0)&&(s2==0)){
-        //         cgpa=parseFloat(s1);
-        //         console.log(cgpa);
-        //      }
-        //      else if((s6==0)&&(s5==0)&&(s4==0)&&(s3==0)){
-        //         cgpa=((parseFloat(s1)+parseFloat(s2))/2);
-        //         console.log(cgpa);
-        //      }
-        //      else if((s6==0)&&(s5==0)&&(s4==0)){
-        //         cgpa=((parseFloat(s1)+parseFloat(s2)+parseFloat(s3))/3);
-        //         console.log(cgpa);
-        //      }
-        //      else if((s6==0)&&(s5==0)){
-        //         cgpa=((parseFloat(s1)+parseFloat(s2)+parseFloat(s3)+parseFloat(s4))/4);
-        //         console.log(cgpa);
-        //      }
-        //      else if((s6==0)){
-        //         cgpa=((parseFloat(s1)+parseFloat(s2)+parseFloat(s3)+parseFloat(s4)+parseFloat(s5))/5);
-        //         console.log(cgpa);
-        //      }
-        //      else{
-        //         cgpa=((parseFloat(s1)+parseFloat(s2)+parseFloat(s3)+parseFloat(s4)+parseFloat(s5)+parseFloat(s6))/6);
-        //         console.log(cgpa);
-        //      }
-
-        //      connection.query(`update cgpa set cgpa='${cgpa}' where register_number='${rno}'`,(err,results)=>{
-        //         if(err) throw err;
-        //         console.log("cgpa inserted");
-        //      });
-        //  });
-
          
         connection.query(`select sem1,sem2,sem3,sem4,sem5,sem6 from cgpa where register_number='${rno}'`, (err, result) => {
             if (err) throw err;
@@ -767,17 +768,7 @@ app.get("/", (req, res) => {
           });
           
 
-        //  connection.query(
-        //    `UPDATE cgpa SET sem1='${sem1}', sem2='${sem2}', sem3='${sem3}',cgpa='${cgpa}' WHERE register_number='${rno}'`,
-        //    (err, result) => {
-        //      if (err) {
-        //        console.log(err);
-        //        throw err;
-        //      }
-        //      console.log("updated successfully");
-             
-        //    }
-        //  );
+        
          
          
 
@@ -789,7 +780,16 @@ app.get("/", (req, res) => {
    );
  });
  
+app.get('/cgpa',verifyToken,(req,res)=>{
 
+      let rno=req.body.reg;
+      console.log(req.body);
+   connection.query(`select cgpa from cgpa where register_number='${rno}'`,(err,result)=>{
+      if (err) throw err;
+      res.send("the cgpa of register number "+rno +" is "+ result[0].cgpa  );
+   })
+
+})
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
