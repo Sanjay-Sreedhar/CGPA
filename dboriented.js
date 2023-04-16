@@ -661,10 +661,38 @@ const students=[
   ]
   ;
   
-  
-
+  // FUNCTION TO INSERT DATA INTO THE MAIN STUDENTS TABLE
+  const insertStudentData = () => {
+   students.map((student) => {
+     const { registerNumber, studentName, semester, courses } = student;
+     let sgpa=0;
+     for (const hello of courses) {
+ 
+       const { course, examType, attendance, internalMark, grade, result } = hello;
+       const parts = course.split("-");
+       const course_code = parts[0];
+       const course_name = parts[1];
+       console.log();
+       const query = `INSERT INTO s_data (register_number, student_name, semester, course_code,exam_type,attendance,imark, grade, result) VALUES (${registerNumber}, '${studentName}', ${semester}, '${course_code}','${examType}','${attendance}',  ${internalMark}, '${grade}', '${result}')`;
+         connection.query(query, (err, results, fields) => {
+           if (err) {
+             console.error('Error inserting data: ', err);
+             return;
+           }
+           console.log('Data inserted successfully');
+         });
+      }
+   })
+}
+      
 
 app.get("/", (req, res) => {
+
+   //CALLING THE INSERT FUNCTION HERE
+      insertStudentData();
+
+
+      //CALCULATE THE SGPA,CGPA AND INSERT INTO THE CGPA TABLE
    connection.query(
      "SELECT course_code, credit FROM c_data",
      (error, results) => {
@@ -695,7 +723,9 @@ app.get("/", (req, res) => {
          }
  
          const sgpa = (totalGradePoints / totalCreditPoints).toFixed(2);
- 
+         
+
+         //UPDATES THE SGPA OF THE STUDENTS IN REAL TIME
          switch (student.semester) {
            case 1:
              sem1 = sgpa;
@@ -744,7 +774,7 @@ app.get("/", (req, res) => {
          }
 
 
-         
+         //FOR CALCULATING THE CGPA
         connection.query(`select sem1,sem2,sem3,sem4,sem5,sem6 from cgpa where register_number='${rno}'`, (err, result) => {
             if (err) throw err;
             
@@ -760,7 +790,7 @@ app.get("/", (req, res) => {
             const s5 = result[0].sem5;
             const s6 = result[0].sem6;
           
-            // calculate CGPA
+            // calculates the CGPA here
             let cgpa;
             if ((s6 == 0) && (s5 == 0) && (s4 == 0) && (s3 == 0) && (s2 == 0)) {
               cgpa = parseFloat(s1);
@@ -782,6 +812,7 @@ app.get("/", (req, res) => {
               console.log(cgpa);
             }
           
+            //UPDATES THE CGPA INTO THE CGPA TABLE HERE
             connection.query(`update cgpa set cgpa='${cgpa}' where register_number='${rno}'`, (err, results) => {
               if (err) throw err;
               console.log("cgpa inserted");
@@ -801,6 +832,8 @@ app.get("/", (req, res) => {
    );
  });
  
+
+ //JUST TO CHECK THE CGPA OF A SPECIFIC REGISTER NUMBER
 app.get('/cgpa',verifyToken,(req,res)=>{
 
       let rno=req.body.reg;
@@ -811,6 +844,20 @@ app.get('/cgpa',verifyToken,(req,res)=>{
    })
 
 })
+
+app.get('/c',(req,res)=>{
+
+   let cg=req.body.reg;
+   // console.log(req.body);
+connection.query(`SELECT register_number,cgpa FROM cgpa WHERE cgpa >= '${cg}'`,(err,result)=>{
+   if (err) throw err;
+
+   res.send(result) //sends the register number and cgpa of every students having cgpa greater than or equal to enter range
+   // res.send("the students having cgpa greater than "+cg+" are "+ result[0].registerNumber  );
+})
+
+})
+
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
